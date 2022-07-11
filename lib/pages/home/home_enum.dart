@@ -14,14 +14,6 @@ enum HomeEnum {
   sign,
 }
 
-List<BottomNavigationBarItem> get bottomNavigationItems {
-  List<BottomNavigationBarItem> items = [];
-  for (var element in HomeEnum.values) {
-    items.add(element.bottomNavigationItem);
-  }
-  return items;
-}
-
 extension HomeEnumExtention on HomeEnum {
   Widget get page {
     switch (this) {

@@ -9,6 +9,11 @@ class AppThemeData {
 
   ThemeData light() => ThemeData(
         scaffoldBackgroundColor: Colors.white,
+        tabBarTheme: TabBarTheme(
+          labelColor: AppColor.instance.kBlue,
+          unselectedLabelColor: Colors.grey,
+        ),
+        indicatorColor: AppColor.instance.kBlue,
         appBarTheme: const AppBarTheme(
           elevation: 0,
         ),
