@@ -1,128 +1,87 @@
-import 'package:bvoat_clone/pages/data/product_model.dart';
-import 'package:bvoat_clone/pages/data/product_repository.dart';
-import 'package:bvoat_clone/theme/app_color.dart';
 import 'package:countup/countup.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter/material.dart';
 
-import 'data/data_utils.dart';
-import 'tab_enum.dart';
+import '../../../theme/app_color.dart';
+import '../../data/data_utils.dart';
+import '../../data/product_model.dart';
+import '../../data/product_repository.dart';
+import '../product_controller.dart';
 
-class StorePage extends StatelessWidget {
-  StorePage({Key? key}) : super(key: key);
+class StoreHomeTabBarView extends StatelessWidget {
+  StoreHomeTabBarView({Key? key}) : super(key: key);
   final _productController = Get.put(ProductController());
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: const Text('Bvoat'),
-          leading: IconButton(
-            icon: const Icon(
-              Icons.search,
-            ),
-            onPressed: () {},
-          ),
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.shopping_cart_outlined,
-              ),
-            ),
-          ],
-        ),
-        body: DefaultTabController(
-          initialIndex: 1,
-          length: TabEnum.values.length,
-          child: Obx(
-            () => SingleChildScrollView(
+    return Obx(
+      () => SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            adCard(),
+            trackingCard(),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 8),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TabBar(
-                    isScrollable: true,
-                    tabs: List.generate(
-                      TabEnum.values.length,
-                      (index) => Text(TabEnum.values.elementAt(index).name),
-                    ),
+                  tshirtsCards(
+                    '옷잘러들의 친환경🌱 그래PICK!',
+                    '여름 흰티 + 그래픽은 치트키니까요 🤫',
+                    ProductsRepository.loadProducts().getRange(0, 2).toList(),
+                    _productController.scrollController0.value,
+                    _productController.offset0.value,
                   ),
-                  adCard(),
-                  trackingCard(),
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 32, horizontal: 8),
-                    child: Column(
-                      children: [
-                        tshirtsCards(
-                          '옷잘러들의 친환경🌱 그래PICK!',
-                          '여름 흰티 + 그래픽은 치트키니까요 🤫',
-                          ProductsRepository.loadProducts()
-                              .getRange(0, 2)
-                              .toList(),
-                          _productController.scrollController0.value,
-                          _productController.offset0.value,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 32, horizontal: 8),
-                    child: Column(
-                      children: [
-                        tshirtsCards(
-                          '🧐 이 브랜드, 이 상품이 친환경?',
-                          '이제 브랜드도 친환경이 대세입니다.',
-                          ProductsRepository.loadProducts()
-                              .getRange(2, 4)
-                              .toList(),
-                          _productController.scrollController1.value,
-                          _productController.offset1.value,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 32, horizontal: 8),
-                    child: Column(
-                      children: [
-                        tshirtsCards(
-                          '상상도 못한 소재 (Feat.환경을 위하여 👍)',
-                          '신기한 소재로 업사이클링 된 상품만 모았어요',
-                          ProductsRepository.loadProducts()
-                              .getRange(4, 6)
-                              .toList(),
-                          _productController.scrollController2.value,
-                          _productController.offset2.value,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 32, horizontal: 8),
-                    child: Column(
-                      children: [
-                        tshirtsCards(
-                          '새 신을 신고 뛰어보자 팔짝! 👟',
-                          '이번 여름은 환경과 함께하는 스니커즈 어때요?',
-                          ProductsRepository.loadProducts()
-                              .getRange(9, 11)
-                              .toList(),
-                          _productController.scrollController4.value,
-                          _productController.offset4.value,
-                        ),
-                      ],
-                    ),
-                  ),
-                  terms(),
                 ],
               ),
             ),
-          ),
-        ));
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 8),
+              child: Column(
+                children: [
+                  tshirtsCards(
+                    '🧐 이 브랜드, 이 상품이 친환경?',
+                    '이제 브랜드도 친환경이 대세입니다.',
+                    ProductsRepository.loadProducts().getRange(2, 4).toList(),
+                    _productController.scrollController1.value,
+                    _productController.offset1.value,
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 8),
+              child: Column(
+                children: [
+                  tshirtsCards(
+                    '상상도 못한 소재 (Feat.환경을 위하여 👍)',
+                    '신기한 소재로 업사이클링 된 상품만 모았어요',
+                    ProductsRepository.loadProducts().getRange(4, 6).toList(),
+                    _productController.scrollController2.value,
+                    _productController.offset2.value,
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 8),
+              child: Column(
+                children: [
+                  tshirtsCards(
+                    '새 신을 신고 뛰어보자 팔짝! 👟',
+                    '이번 여름은 환경과 함께하는 스니커즈 어때요?',
+                    ProductsRepository.loadProducts().getRange(9, 11).toList(),
+                    _productController.scrollController4.value,
+                    _productController.offset4.value,
+                  ),
+                ],
+              ),
+            ),
+            terms(),
+          ],
+        ),
+      ),
+    );
   }
 
   Widget tshirtsCards(
@@ -416,62 +375,4 @@ class StorePage extends StatelessWidget {
           ),
         ],
       );
-}
-
-class ProductController extends GetxController {
-  var scrollController0 = ScrollController(initialScrollOffset: 0.0).obs;
-  var scrollController1 = ScrollController(initialScrollOffset: 0.0).obs;
-  var scrollController2 = ScrollController(initialScrollOffset: 0.0).obs;
-  var scrollController3 = ScrollController(initialScrollOffset: 0.0).obs;
-  var scrollController4 = ScrollController(initialScrollOffset: 0.0).obs;
-
-  var offset0 = 0.0.obs;
-  var offset1 = 0.0.obs;
-  var offset2 = 0.0.obs;
-  var offset3 = 0.0.obs;
-  var offset4 = 0.0.obs;
-
-  @override
-  void onInit() {
-    scrollController0.value.addListener(() {
-      var maxOffset = scrollController0.value.position.maxScrollExtent;
-      var currentOffset = scrollController0.value.offset;
-      var offsetRatio = currentOffset / maxOffset;
-
-      // if (offsetRatio < 0.3) {
-      //   offsetRatio = 0.3;
-      // } else if (offsetRatio < 0.6) {
-      //   offsetRatio = 0.6;
-      // } else {
-      //   offsetRatio = 1;
-      // }
-
-      offset0.value = offsetRatio;
-    });
-    scrollController1.value.addListener(() {
-      var maxOffset = scrollController1.value.position.maxScrollExtent;
-      var currentOffset = scrollController1.value.offset;
-      var offsetRatio = currentOffset / maxOffset;
-      offset1.value = offsetRatio;
-    });
-    scrollController2.value.addListener(() {
-      var maxOffset = scrollController2.value.position.maxScrollExtent;
-      var currentOffset = scrollController2.value.offset;
-      var offsetRatio = currentOffset / maxOffset;
-      offset2.value = offsetRatio;
-    });
-    scrollController3.value.addListener(() {
-      var maxOffset = scrollController3.value.position.maxScrollExtent;
-      var currentOffset = scrollController3.value.offset;
-      var offsetRatio = currentOffset / maxOffset;
-      offset3.value = offsetRatio;
-    });
-    scrollController4.value.addListener(() {
-      var maxOffset = scrollController4.value.position.maxScrollExtent;
-      var currentOffset = scrollController4.value.offset;
-      var offsetRatio = currentOffset / maxOffset;
-      offset4.value = offsetRatio;
-    });
-    super.onInit();
-  }
 }
