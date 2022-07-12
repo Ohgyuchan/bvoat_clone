@@ -4,7 +4,7 @@ import '../auth/sign_page.dart';
 import '../category_page.dart';
 import '../favorite_page.dart';
 import '../feed_page.dart';
-import '../store_page.dart';
+import '../store/store_page.dart';
 
 enum HomeEnum {
   feed,
@@ -22,7 +22,7 @@ extension HomeEnumExtention on HomeEnum {
       case HomeEnum.category:
         return const CategoryPage();
       case HomeEnum.store:
-        return StorePage();
+        return const StorePage();
       case HomeEnum.favorite:
         return const FavoritePage();
       case HomeEnum.sign:
