@@ -22,7 +22,7 @@ extension HomeEnumExtention on HomeEnum {
       case HomeEnum.category:
         return const CategoryPage();
       case HomeEnum.store:
-        return const StorePage();
+        return StorePage();
       case HomeEnum.favorite:
         return const FavoritePage();
       case HomeEnum.sign:
