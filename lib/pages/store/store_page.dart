@@ -27,11 +27,14 @@ class StorePage extends StatelessWidget {
               ),
             ),
           ],
-          bottom: TabBar(
-            isScrollable: true,
-            tabs: List.generate(
-              TabBarEnum.values.length,
-              (index) => Text(TabBarEnum.values.elementAt(index).name),
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(1),
+            child: TabBar(
+              isScrollable: true,
+              tabs: List.generate(
+                TabBarEnum.values.length,
+                (index) => TabBarEnum.values.elementAt(index).tabBarString,
+              ),
             ),
           ),
         ),
