@@ -12,13 +12,40 @@ class HomePage extends StatelessWidget {
     HomePageController homePageController = Get.put(HomePageController());
 
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Bvoat'),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.search,
+          ),
+          onPressed: () {},
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.shopping_cart_outlined,
+            ),
+          ),
+        ],
+      ),
       bottomNavigationBar: Obx(
-        () => BottomNavigationBar(
-          currentIndex: homePageController.selectedHomeEnum.value.index,
-          onTap: homePageController.onTap,
-          items: List.generate(
-            HomeEnum.values.length,
-            (index) => HomeEnum.values.elementAt(index).bottomNavigationItem,
+        () => Container(
+          decoration: const BoxDecoration(
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                color: Colors.white,
+                blurRadius: 10,
+              ),
+            ],
+          ),
+          child: BottomNavigationBar(
+            currentIndex: homePageController.selectedHomeEnum.value.index,
+            onTap: homePageController.onTap,
+            items: List.generate(
+              HomeEnum.values.length,
+              (index) => HomeEnum.values.elementAt(index).bottomNavigationItem,
+            ),
           ),
         ),
       ),

@@ -8,33 +8,16 @@ class StorePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      initialIndex: 1,
+      initialIndex: 0,
       length: TabBarEnum.values.length,
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Bvoat'),
-          leading: IconButton(
-            icon: const Icon(
-              Icons.search,
-            ),
-            onPressed: () {},
-          ),
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.shopping_cart_outlined,
-              ),
-            ),
-          ],
-          bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(1),
-            child: TabBar(
-              isScrollable: true,
-              tabs: List.generate(
-                TabBarEnum.values.length,
-                (index) => TabBarEnum.values.elementAt(index).tabBarString,
-              ),
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(30),
+          child: TabBar(
+            isScrollable: true,
+            tabs: List.generate(
+              TabBarEnum.values.length,
+              (index) => TabBarEnum.values.elementAt(index).tabBarString,
             ),
           ),
         ),

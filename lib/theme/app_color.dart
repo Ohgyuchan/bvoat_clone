@@ -6,5 +6,6 @@ class AppColor {
 
   static AppColor get instance => _instance;
 
-  final kBlue = const Color.fromARGB(255, 2, 13, 230);
+  final kBlue = Color.fromARGB(255, 5, 17, 239);
+  final kBlueBlur = Color.fromARGB(255, 64, 70, 185);
 }
