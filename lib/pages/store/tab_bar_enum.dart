@@ -24,7 +24,7 @@ extension TabBarEumExtension on TabBarEnum {
   Widget get tabBarView {
     switch (this) {
       case TabBarEnum.crew:
-        return const CrewTabBarView();
+        return CrewTabBarView();
       case TabBarEnum.storeHome:
         return StoreHomeTabBarView();
       case TabBarEnum.fashion:
