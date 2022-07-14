@@ -10,23 +10,69 @@ import 'package:widget_and_text_animator/widget_and_text_animator.dart';
 import 'get_animation_controller.dart';
 
 class CrewTabBarView extends StatelessWidget {
-  CrewTabBarView({Key? key}) : super(key: key);
+  CrewTabBarView({Key? key, required this.terms}) : super(key: key);
+  final Widget terms;
   final GetAnimationController animationController =
       Get.put(GetAnimationController());
   final height = 620.0;
   final width = Get.width;
+  final _keys = <Key>[
+    const Key('first'),
+    const Key('second'),
+    const Key('third'),
+    const Key('forth'),
+    const Key('fifth'),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            _firstContainer(),
-            _secondContainer(),
-          ],
+      body: Obx(() => SingleChildScrollView(
+            controller: animationController.scrollController.value,
+            child: Column(
+              children: [
+                _firstContainer(),
+                _secondContainer(),
+                terms,
+              ],
+            ),
+          )),
+    );
+  }
+
+  Widget texts(int index, RxBool isShown, String headline, String bodyText) {
+    return Column(
+      children: [
+        VisibilityDetector(
+          key: _keys[index],
+          onVisibilityChanged: (info) => info.visibleBounds == Rect.zero
+              ? isShown.value = false
+              : isShown.value = true,
+          child: OpacityAnimatedWidget.tween(
+            opacityEnabled: 1, //define start value
+            opacityDisabled: 0, //and end value(
+            enabled: isShown.value,
+            child: TranslationAnimatedWidget.tween(
+              enabled: isShown.value,
+              translationDisabled: const Offset(0, 100),
+              translationEnabled: const Offset(0, 0),
+              child: SizedBox(
+                height: 140,
+                child: Text(
+                  headline,
+                  textAlign: TextAlign.center,
+                  style: Get.textTheme.headline2,
+                ),
+              ),
+            ),
+          ),
         ),
-      ),
+        Text(
+          bodyText,
+          textAlign: TextAlign.center,
+          style: Get.textTheme.bodyText1,
+        ),
+      ],
     );
   }
 
@@ -51,174 +97,35 @@ class CrewTabBarView extends StatelessWidget {
           () => Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              VisibilityDetector(
-                key: const Key('first'),
-                onVisibilityChanged: (info) => info.visibleBounds == Rect.zero
-                    ? animationController.first.value = false
-                    : animationController.first.value = true,
-                child: OpacityAnimatedWidget.tween(
-                  opacityEnabled: 1, //define start value
-                  opacityDisabled: 0, //and end value(
-                  enabled: animationController.first.value,
-                  child: TranslationAnimatedWidget.tween(
-                    enabled: animationController.first.value,
-                    translationDisabled: const Offset(0, 100),
-                    translationEnabled: const Offset(0, 0),
-                    child: SizedBox(
-                      height: 140,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            '💰\n마일리지\n무제한 2배 적립',
-                            textAlign: TextAlign.center,
-                            style: Get.textTheme.headline2,
-                          ),
-                          Text(
-                            '횟수 무제한 가치소비 마일리지 자동 2% 적립',
-                            textAlign: TextAlign.center,
-                            style: Get.textTheme.bodyText1,
-                          ),
-                        ],
+              texts(0, animationController.first, '💰\n마일리지\n무제한 2배 적립',
+                  '횟수 무제한 가치소비 마일리지 자동 2% 적립'),
+              texts(1, animationController.second, '✍️\n소비기록\n마일리지 5배 적립',
+                  '가치소비 리뷰 작성 시 건당 최대 1,000점 적립'),
+              texts(2, animationController.third, '😎\n비보트 크루\n전용 뱃지 노출',
+                  '비보트 크루 전용 뱃지 커뮤니티, 프로필(예정) 노출'),
+              texts(3, animationController.forth, '📦\n10% 할인 쿠폰,\n무료배송 쿠폰 지급',
+                  '10% 할인 쿠폰, 무료 배송 쿠폰 바로 지급'),
+              texts(4, animationController.fifth, '📮\nWHAT\'S NEXT?',
+                  '비보트 크루 전용 혜택은 지속적으로 추가됩니다.'),
+              GestureDetector(
+                onTap: () async {
+                  await animationController.goInitialOffset();
+                },
+                child: Column(
+                  children: const [
+                    Icon(
+                      Icons.keyboard_double_arrow_up_outlined,
+                      color: Colors.white,
+                    ),
+                    Text(
+                      '다시 읽기',
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                  ),
-                ),
-              ),
-              VisibilityDetector(
-                key: const Key('second'),
-                onVisibilityChanged: (info) => info.visibleBounds == Rect.zero
-                    ? animationController.second.value = false
-                    : animationController.second.value = true,
-                child: OpacityAnimatedWidget.tween(
-                  opacityEnabled: 1, //define start value
-                  opacityDisabled: 0, //and end value(
-                  enabled: animationController.second.value,
-                  child: TranslationAnimatedWidget.tween(
-                    enabled: animationController.second.value,
-                    translationDisabled: const Offset(0, 100),
-                    translationEnabled: const Offset(0, 0),
-                    child: SizedBox(
-                      height: 140,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            '✍️\n소비기록\n마일리지 5배 적립',
-                            textAlign: TextAlign.center,
-                            style: Get.textTheme.headline2,
-                          ),
-                          Text(
-                            '가치소비 리뷰 작성 시 건당 최대 1,000점 적립',
-                            textAlign: TextAlign.center,
-                            style: Get.textTheme.bodyText1,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              VisibilityDetector(
-                key: const Key('third'),
-                onVisibilityChanged: (info) => info.visibleBounds == Rect.zero
-                    ? animationController.third.value = false
-                    : animationController.third.value = true,
-                child: OpacityAnimatedWidget.tween(
-                  opacityEnabled: 1, //define start value
-                  opacityDisabled: 0, //and end value(
-                  enabled: animationController.third.value,
-                  child: TranslationAnimatedWidget.tween(
-                    enabled: animationController.third.value,
-                    translationDisabled: const Offset(0, 100),
-                    translationEnabled: const Offset(0, 0),
-                    child: SizedBox(
-                      height: 140,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            '😎\n비보트 크루\n전용 뱃지 노출',
-                            textAlign: TextAlign.center,
-                            style: Get.textTheme.headline2,
-                          ),
-                          Text(
-                            '비보트 크루 전용 뱃지 커뮤니티, 프로필(예정) 노출',
-                            textAlign: TextAlign.center,
-                            style: Get.textTheme.bodyText1,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              VisibilityDetector(
-                key: const Key('forth'),
-                onVisibilityChanged: (info) => info.visibleBounds == Rect.zero
-                    ? animationController.forth.value = false
-                    : animationController.forth.value = true,
-                child: OpacityAnimatedWidget.tween(
-                  opacityEnabled: 1, //define start value
-                  opacityDisabled: 0, //and end value(
-                  enabled: animationController.forth.value,
-                  child: TranslationAnimatedWidget.tween(
-                    enabled: animationController.forth.value,
-                    translationDisabled: const Offset(0, 100),
-                    translationEnabled: const Offset(0, 0),
-                    child: SizedBox(
-                      height: 140,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            '📦\n10% 할인 쿠폰,\n무료배송 쿠폰 지급',
-                            textAlign: TextAlign.center,
-                            style: Get.textTheme.headline2,
-                          ),
-                          Text(
-                            '10% 할인 쿠폰, 무료 배송 쿠폰 바로 지급',
-                            textAlign: TextAlign.center,
-                            style: Get.textTheme.bodyText1,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              VisibilityDetector(
-                key: const Key('fifth'),
-                onVisibilityChanged: (info) => info.visibleBounds == Rect.zero
-                    ? animationController.fifth.value = false
-                    : animationController.fifth.value = true,
-                child: OpacityAnimatedWidget.tween(
-                  opacityEnabled: 1, //define start value
-                  opacityDisabled: 0, //and end value(
-                  enabled: animationController.fifth.value,
-                  child: TranslationAnimatedWidget.tween(
-                    enabled: animationController.fifth.value,
-                    translationDisabled: const Offset(0, 100),
-                    translationEnabled: const Offset(0, 0),
-                    child: SizedBox(
-                      height: 140,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            '📮\nWHAT\'S NEXT?',
-                            textAlign: TextAlign.center,
-                            style: Get.textTheme.headline2,
-                          ),
-                          Text(
-                            '비보트 크루 전용 혜택은 지속적으로 추가됩니다.',
-                            textAlign: TextAlign.center,
-                            style: Get.textTheme.bodyText1,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                  ],
                 ),
               ),
             ],
@@ -393,7 +300,9 @@ class CrewTabBarView extends StatelessWidget {
               ),
             ),
             child: GestureDetector(
-              onTap: () {},
+              onTap: () async {
+                await animationController.goLastOffset();
+              },
               child: Column(
                 children: const [
                   Text(

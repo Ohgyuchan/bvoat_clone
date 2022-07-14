@@ -24,21 +24,21 @@ extension TabBarEumExtension on TabBarEnum {
   Widget get tabBarView {
     switch (this) {
       case TabBarEnum.crew:
-        return CrewTabBarView();
+        return CrewTabBarView(terms: terms);
       case TabBarEnum.storeHome:
-        return StoreHomeTabBarView();
+        return StoreHomeTabBarView(terms: terms);
       case TabBarEnum.fashion:
-        return const FashionTabBarView();
+        return FashionTabBarView(terms: terms);
       case TabBarEnum.food:
-        return const FoodTabBarView();
+        return FoodTabBarView(terms: terms);
       case TabBarEnum.beauty:
-        return const BeautyTabBarView();
+        return BeautyTabBarView(terms: terms);
       case TabBarEnum.living:
-        return const LivingTabBarView();
+        return LivingTabBarView(terms: terms);
       case TabBarEnum.all:
-        return const AllTabBarView();
+        return AllTabBarView(terms: terms);
       case TabBarEnum.funding:
-        return const FundingTabBarView();
+        return FundingTabBarView(terms: terms);
       default:
         return Container();
     }
@@ -87,4 +87,133 @@ extension TabBarEumExtension on TabBarEnum {
         return Text('');
     }
   }
+
+  Widget get terms => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: const [
+                Text('개인정보처리방침'),
+                SizedBox(width: 8),
+                Text('이용약관'),
+                SizedBox(width: 8),
+                Text('환불 정책'),
+                SizedBox(width: 8),
+                Text('파트너쉽/입점 문의'),
+              ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text('소비는 투표다!'),
+                Row(
+                  children: const [
+                    Text('가치소비 커뮤니티 커머스 - '),
+                    Text(
+                      '비보트',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            child: Row(
+              children: [
+                Container(
+                  margin: const EdgeInsets.fromLTRB(0, 0, 6, 0),
+                  padding: const EdgeInsets.all(5),
+                  height: 50,
+                  width: 150,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[400],
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Column(
+                    children: const [
+                      Text('Download on the'),
+                      Text('App Store'),
+                    ],
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.all(5),
+                  height: 50,
+                  width: 150,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[400],
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Column(
+                    children: const [
+                      Text('Download on the'),
+                      Text('Google Play'),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+                Text(
+                  '제휴문의: official@____.kr',
+                  style: TextStyle(fontSize: 11),
+                ),
+                Text(
+                  '고객센터: 080-0123-1234 / 카카오톡 채널: 비보트 (운영시간 | 평일 13:00~18:00)',
+                  style: TextStyle(fontSize: 11),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                const Text(
+                  '(주) 패신저스 사업자 정보',
+                  style: TextStyle(
+                    color: Colors.grey,
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {},
+                  child: const Icon(
+                    Icons.expand_more,
+                    color: Colors.grey,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+                Text('주식회사 패신저스 | 대표 : 아무개'),
+                Text('주소 : 12345 포항시 북구 흥해읍 흥해라 흥'),
+                Text('사업자등록번호 : 123-12-12345'),
+                Text('통신판매업신고번호 : 2021-흥해-12345'),
+                Text('개인정보관리책임자 : 김관리 operator@_____.kr'),
+              ],
+            ),
+          ),
+        ],
+      );
 }

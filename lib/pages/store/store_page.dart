@@ -8,7 +8,7 @@ class StorePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      initialIndex: 0,
+      initialIndex: 2,
       length: TabBarEnum.values.length,
       child: Scaffold(
         appBar: PreferredSize(
