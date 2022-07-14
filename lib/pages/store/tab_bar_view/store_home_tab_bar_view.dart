@@ -3,14 +3,15 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
 import '../../../theme/app_color.dart';
-import '../../data/data_utils.dart';
+import '../../../widgets/product_card.dart';
 import '../../data/product_model.dart';
 import '../../data/product_repository.dart';
 import '../product_controller.dart';
 
 class StoreHomeTabBarView extends StatelessWidget {
-  StoreHomeTabBarView({Key? key}) : super(key: key);
+  StoreHomeTabBarView({Key? key, required this.terms}) : super(key: key);
   final _productController = Get.put(ProductController());
+  final Widget terms;
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +78,7 @@ class StoreHomeTabBarView extends StatelessWidget {
                 ],
               ),
             ),
-            terms(),
+            terms,
           ],
         ),
       ),
@@ -120,7 +121,7 @@ class StoreHomeTabBarView extends StatelessWidget {
                 ),
                 itemCount: 10,
                 itemBuilder: ((context, index) {
-                  return productCard(
+                  return ProductCard.build(
                     productModels.elementAt(index % 2),
                   );
                 }),
@@ -128,46 +129,6 @@ class StoreHomeTabBarView extends StatelessWidget {
           LinearProgressIndicator(
             value: offset,
             color: AppColor.instance.kBlue,
-          ),
-        ],
-      );
-
-  Widget productCard(ProductModel productModel) => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Card(
-            child: Image.asset(
-              productModel.getAssetName,
-              width: 150,
-              fit: BoxFit.fitWidth,
-            ),
-          ),
-          SizedBox(
-            width: 150,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  productModel.brand,
-                  style: const TextStyle(color: Colors.grey, fontSize: 15),
-                ),
-                Text(
-                  productModel.description,
-                  style: const TextStyle(
-                      color: Colors.grey,
-                      fontSize: 15,
-                      overflow: TextOverflow.ellipsis),
-                ),
-                Text(
-                  productModel.title,
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
-                Text(
-                  DataUtils.calcStringToWon(productModel.price),
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
           ),
         ],
       );
@@ -243,135 +204,6 @@ class StoreHomeTabBarView extends StatelessWidget {
             decoration: BoxDecoration(
                 color: AppColor.instance.kBlue,
                 borderRadius: BorderRadius.circular(25)),
-          ),
-        ],
-      );
-
-  Widget terms() => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: const [
-                Text('개인정보처리방침'),
-                SizedBox(width: 8),
-                Text('이용약관'),
-                SizedBox(width: 8),
-                Text('환불 정책'),
-                SizedBox(width: 8),
-                Text('파트너쉽/입점 문의'),
-              ],
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text('소비는 투표다!'),
-                Row(
-                  children: const [
-                    Text('가치소비 커뮤니티 커머스 - '),
-                    Text(
-                      '비보트',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            child: Row(
-              children: [
-                Container(
-                  margin: const EdgeInsets.fromLTRB(0, 0, 6, 0),
-                  padding: const EdgeInsets.all(5),
-                  height: 50,
-                  width: 150,
-                  decoration: BoxDecoration(
-                    color: Colors.grey[400],
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Column(
-                    children: const [
-                      Text('Download on the'),
-                      Text('App Store'),
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.all(5),
-                  height: 50,
-                  width: 150,
-                  decoration: BoxDecoration(
-                    color: Colors.grey[400],
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Column(
-                    children: const [
-                      Text('Download on the'),
-                      Text('Google Play'),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text(
-                  '제휴문의: official@____.kr',
-                  style: TextStyle(fontSize: 11),
-                ),
-                Text(
-                  '고객센터: 080-0123-1234 / 카카오톡 채널: 비보트 (운영시간 | 평일 13:00~18:00)',
-                  style: TextStyle(fontSize: 11),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            margin: const EdgeInsets.fromLTRB(0, 8, 0, 0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const Text(
-                  '(주) 패신저스 사업자 정보',
-                  style: TextStyle(
-                    color: Colors.grey,
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {},
-                  child: const Icon(
-                    Icons.expand_more,
-                    color: Colors.grey,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text('주식회사 패신저스 | 대표 : 아무개'),
-                Text('주소 : 12345 포항시 북구 흥해읍 흥해라 흥'),
-                Text('사업자등록번호 : 123-12-12345'),
-                Text('통신판매업신고번호 : 2021-흥해-12345'),
-                Text('개인정보관리책임자 : 김관리 operator@_____.kr'),
-              ],
-            ),
           ),
         ],
       );

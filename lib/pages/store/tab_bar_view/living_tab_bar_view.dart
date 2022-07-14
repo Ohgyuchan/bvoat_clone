@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class LivingTabBarView extends StatelessWidget {
-  const LivingTabBarView({Key? key}) : super(key: key);
+  const LivingTabBarView({Key? key, required this.terms}) : super(key: key);
+  final Widget terms;
 
   @override
   Widget build(BuildContext context) {

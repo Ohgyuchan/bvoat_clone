@@ -36,33 +36,50 @@ extension HomeEnumExtention on HomeEnum {
     switch (this) {
       case HomeEnum.feed:
         return BottomNavigationBarItem(
-          label: name,
+          label: getString,
           icon: const Icon(Icons.public),
         );
       case HomeEnum.category:
         return BottomNavigationBarItem(
-          label: name,
+          label: getString,
           icon: const Icon(Icons.dashboard),
         );
       case HomeEnum.store:
         return BottomNavigationBarItem(
-          label: name,
+          label: getString,
           icon: const Icon(Icons.storefront),
         );
       case HomeEnum.favorite:
         return BottomNavigationBarItem(
-          label: name,
+          label: getString,
           icon: const Icon(Icons.favorite),
         );
       case HomeEnum.sign:
         return BottomNavigationBarItem(
-          label: name,
+          label: getString,
           icon: const Icon(Icons.person),
         );
       default:
         return const BottomNavigationBarItem(
           icon: Icon(Icons.abc),
         );
+    }
+  }
+
+  String get getString {
+    switch (this) {
+      case HomeEnum.feed:
+        return '피드';
+      case HomeEnum.category:
+        return '카테고리';
+      case HomeEnum.store:
+        return '스토어';
+      case HomeEnum.favorite:
+        return '찜';
+      case HomeEnum.sign:
+        return '로그인';
+      default:
+        return '';
     }
   }
 }
