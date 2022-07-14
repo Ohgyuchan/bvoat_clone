@@ -32,6 +32,32 @@ class FashionTabBarView extends StatelessWidget {
             ),
           ),
           _head(),
+          DefaultTabController(
+              length: 1,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    height: 40,
+                    width: Get.width,
+                    color: const Color.fromARGB(221, 27, 24, 24),
+                    child: TabBar(
+                      isScrollable: true,
+                      labelColor: Colors.white,
+                      unselectedLabelColor: Colors.white,
+                      labelStyle: Get.textTheme.bodyText2,
+                      labelPadding: const EdgeInsets.symmetric(
+                          vertical: 5, horizontal: 10),
+                      indicatorColor: Colors.transparent,
+                      tabs: const [
+                        Tab(
+                          text: '전체',
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              )),
           terms
         ],
       ),
